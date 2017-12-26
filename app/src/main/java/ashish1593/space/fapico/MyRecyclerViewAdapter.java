@@ -46,7 +46,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return new ViewHolder(view);
     }
 
-    // binds the data to the textview in each cell
+    // binds the data to the ImageView in each cell
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Image image = imagesList.get(position);
@@ -54,7 +54,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 .load(image.uri)
                 .centerCrop()
                 .into(holder.myImage);
-        // holder.myImage.setImageURI(image.uri);
     }
 
     // total number of cells
