@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.vlk.multimager.utils.Image;
 
 import java.util.ArrayList;
@@ -17,29 +18,24 @@ import java.util.ArrayList;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<? extends Image> imagesList = new ArrayList<>();
+    private ArrayList<Image> imagesList = new ArrayList<>();
     private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private Context context;
 
     // data is passed into the constructor
     public MyRecyclerViewAdapter(Context context, ArrayList<Image> imagesList) {
         this.mInflater = LayoutInflater.from(context);
         this.imagesList = imagesList;
+        this.context = context;
     }
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView myImage;
 
         ViewHolder(View itemView) {
             super(itemView);
             myImage = itemView.findViewById(R.id.image);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
@@ -54,7 +50,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Image image = imagesList.get(position);
-        holder.myImage.setImageURI(image.uri);
+        Glide.with(context)
+                .load(image.uri)
+                .centerCrop()
+                .into(holder.myImage);
+        // holder.myImage.setImageURI(image.uri);
     }
 
     // total number of cells
@@ -68,13 +68,4 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return imagesList.get(id);
     }
 
-    // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 }
