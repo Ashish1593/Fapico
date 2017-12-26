@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_image_list"
         android:layout_width="match_parent"
@@ -12,6 +11,13 @@
         android:layout_above="@+id/buttons"
         android:numColumns="auto_fit"/>
 
+    <TextView
+        android:id="@+id/placeholder_text"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/placeholder_image"
+        />
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
@@ -30,6 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/capture_images_from_campera"/>
+            android:text="@string/capture_images_from_camera"/>
     </LinearLayout>
 </RelativeLayout>

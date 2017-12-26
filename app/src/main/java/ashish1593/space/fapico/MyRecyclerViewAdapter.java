@@ -23,15 +23,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private Context context;
 
     // data is passed into the constructor
-    public MyRecyclerViewAdapter(Context context, ArrayList<Image> imagesList) {
+    MyRecyclerViewAdapter(Context context, ArrayList<Image> imagesList) {
         this.mInflater = LayoutInflater.from(context);
         this.imagesList = imagesList;
         this.context = context;
     }
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView myImage;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView myImage;
 
         ViewHolder(View itemView) {
             super(itemView);

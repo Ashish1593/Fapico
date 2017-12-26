@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.vlk.multimager.activities.GalleryActivity;
 import com.vlk.multimager.activities.MultiCameraActivity;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     Button buttonCapture;
     Button button_select;
+    TextView placeholderText;
     RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     ArrayList<Image> imagesList;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         buttonCapture = findViewById(R.id.button_capture);
         button_select = findViewById(R.id.button_select);
+        placeholderText = findViewById(R.id.placeholder_text);
         recyclerView = findViewById(R.id.rv_image_list);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         buttonCapture.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             imagesList = savedInstanceState.getParcelableArrayList("images");
             if (imagesList != null) {
+                placeholderText.setVisibility(View.GONE);
                 adapter = new MyRecyclerViewAdapter(this, imagesList);
                 recyclerView.setAdapter(adapter);
             }
@@ -74,11 +76,13 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case Constants.TYPE_MULTI_CAPTURE:
                 imagesList = intent.getParcelableArrayListExtra(Constants.KEY_BUNDLE_LIST);
+                placeholderText.setVisibility(View.GONE);
                 adapter = new MyRecyclerViewAdapter(this, imagesList);
                 recyclerView.setAdapter(adapter);
                 break;
             case Constants.TYPE_MULTI_PICKER:
                 imagesList = intent.getParcelableArrayListExtra(Constants.KEY_BUNDLE_LIST);
+                placeholderText.setVisibility(View.GONE);
                 adapter = new MyRecyclerViewAdapter(this, imagesList);
                 recyclerView.setAdapter(adapter);
                 break;
